@@ -1,0 +1,40 @@
+[project]
+name = "aegis-security-sdk"
+version = "0.1.0"
+description = "Aegis AI Security & Governance SDK"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain-core>=0.3.0",
+    "langchain-groq>=0.2.0",
+    "langgraph>=0.2.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.27.0",
+]
+
+[project.optional-dependencies]
+openai = ["langchain-openai>=0.2.0"]
+anthropic = ["langchain-anthropic>=0.3.0"]
+google = ["langchain-google-genai>=2.0.0"]
+nvidia = ["langchain-nvidia-ai-endpoints>=0.3.0"]
+crewai = ["crewai>=0.80.0", "crewai-tools>=0.14.0"]
+all = [
+    "aegis-security-sdk[openai]",
+    "aegis-security-sdk[anthropic]",
+    "aegis-security-sdk[google]",
+    "aegis-security-sdk[nvidia]",
+    "aegis-security-sdk[crewai]",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["aegis", "aegis.*", "pyarmor_runtime_000000", "pyarmor_runtime_000000.*"]
+exclude = [".venv*", "wheel_build*", "__pycache__*", "*.egg-info*", "dist*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.pyd", "*.so", "*.dll", "*.dylib", ".env"]
